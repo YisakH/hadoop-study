@@ -1,4 +1,4 @@
-package socks.test;
+package dke.test;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -123,7 +123,7 @@ public class LogFileAnalysis {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "Log File Count Analysis");
         job.setJarByClass(LogFileAnalysis.class);
-        job.setMapperClass(TokenizerMapper.class);
+        job.setMapperClass(DeepLogMapper.class);
         job.setCombinerClass(CountReducer.class);
         job.setReducerClass(CountReducer.class);
         job.setOutputKeyClass(Text.class);

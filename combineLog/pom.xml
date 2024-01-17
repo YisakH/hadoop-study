@@ -41,7 +41,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>socks.test.LogFileCombiner</mainClass>
+                            <mainClass>dke.test.LogFileCombiner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -40,7 +40,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>socks.test.LogFileAnalysis</mainClass>
+                            <mainClass>dke.test.LogFileAnalysis</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
