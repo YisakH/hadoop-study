@@ -1,15 +1,12 @@
-import collections
 import os
+from collections import Counter
 
-def read_in_chunks(file_path, chunk_size=4096):
-    """
-    Generator to read a file in chunks.
-    """
+def read_in_chunks(file_path, chunk_size=1024 * 1024 * 1024):  # 1GB
     with open(file_path, 'r', encoding='utf-8') as file:
         while True:
             start_pos = file.tell()
-            file.seek(os.SEEK_CUR, chunk_size)
-            buffer = file.read()
+            file.seek(start_pos + chunk_size, os.SEEK_SET)
+            buffer = file.read(chunk_size)
             if not buffer:
                 break
             last_newline = buffer.rfind('\n')
@@ -17,26 +14,26 @@ def read_in_chunks(file_path, chunk_size=4096):
                 file.seek(start_pos + last_newline + 1)
                 yield buffer[:last_newline + 1]
             else:
-                # Handle case where there are no newlines in the buffer
                 file.seek(start_pos)
                 yield file.read(chunk_size)
 
-def count_words_in_chunk(chunk):
-    """
-    Count words in a given chunk of text.
-    """
-    words = chunk.split()
-    word_counts = collections.Counter(words)
-    return word_counts
-
 def main(file_path):
-    word_count = collections.Counter()
-    for chunk in read_in_chunks(file_path, chunk_size=4 * 1024 * 1024 * 1024):
-        word_count += count_words_in_chunk(chunk)
+    word_count = Counter()
+    total_size = os.path.getsize(file_path)
+    processed_size = 0
 
-    for word, count in word_count.items():
-        print(f"{word}: {count}")
+    for chunk in read_in_chunks(file_path, chunk_size=1024 * 1024 * 1024):  # 1GB
+        words = chunk.split()
+        word_count.update(words)
+        processed_size += len(chunk)
+        progress = (processed_size / total_size) * 100
+        print(f"Progress: {progress:.2f}%")
+
+    with open('wordcount_result.txt', 'w') as output_file:
+        for word, count in word_count.items():
+            output_file.write(f"{word}: {count}\n")
+
 
 if __name__ == "__main__":
-    file_path = '/path/to/your/largefile.txt'  # Replace with your file path
+    file_path = '/tools/hadoop/part-r-00000'  # Replace with your file path
     main(file_path)
