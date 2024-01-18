@@ -36,11 +36,11 @@ public class LogFileCombiner {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "LogFileCombiner");
-        job.setJarByClass(LogFileCombiner.class);
-        job.setMapperClass(CombineMapper.class);
-        job.setReducerClass(CombineReducer.class);
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(Text.class);
+        job.setJarByClass(/* 빈 칸 */);
+        job.setMapperClass(/* 빈 칸 */);
+        job.setReducerClass(/* 빈 칸 */);
+        job.setOutputKeyClass(/* 빈 칸 */);
+        job.setOutputValueClass(/* 빈 칸 */);
         FileInputFormat.addInputPath(job, new Path(args[1]));
         FileOutputFormat.setOutputPath(job, new Path(args[2]));
         System.exit(job.waitForCompletion(true) ? 0 : 1);

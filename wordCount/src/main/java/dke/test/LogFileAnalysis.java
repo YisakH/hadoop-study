@@ -106,6 +106,7 @@ public class LogFileAnalysis {
             }
         }
     }
+    
     public static class CountReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
         private final IntWritable result = new IntWritable();
 
