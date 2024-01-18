@@ -20,7 +20,7 @@ public class LogFileCombiner {
             // Key can be set to filename or any unique identifier
             fileKey.set("CombinedLogs");
             // Writing the value directly
-            context.write(fileKey, value);
+            context.write(/* 빈 칸 */);
         }
     }
 
@@ -28,7 +28,7 @@ public class LogFileCombiner {
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
             // Simply write all values to the output file
             for (Text val : values) {
-                context.write(NullWritable.get(), val);
+                context.write(/* 빈 칸 */);
             }
         }
     }
